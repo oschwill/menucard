@@ -2,6 +2,13 @@
 
 {% block body %}
 
+{% for message in app.flashes('failedOrder') %}
+	<div class="alert alert-danger">
+		<h3>{{ message }}</h3>
+	</div>
+{% endfor %}
+
+
 {% set summe = 0.00 %}
 <br>
 <div class="container">
@@ -14,22 +21,47 @@
         <td>Name</td>
         <td>Preis</td>
         <td>Status</td>
+        <td></td>
       </tr>
     </thead>
     <tbody>
-    {% for order in orders %}
+    {% for order in orders %}    
       {% set summe = summe + order.price %}
+      {% if order.status != "archiv" %}
       <tr>
         <td>{{ order.bnummer }}</td>
         <td>{{ order.name }}</td>
-        <td>{{ order.price }} €</td>
+        <td>{{ order.price }} €</td>        
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <td>
+          <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ order.status }}
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="{{ path('status', { id: order.id, status: 'offen' }) }}">offen</a>
+              <a class="dropdown-item" href="{{ path('status', { id: order.id, status: 'fertig' }) }}">fertig</a>
+              <a class="dropdown-item" href="{{ path('status', { id: order.id, status: 'archiv' }) }}">archiv</a>
+            </div>
+          </div>
+        </td>
+        {% else %}
         <td>{{ order.status }}</td>
+        {% endif %}
+        <td>
+        {% if order.status == "offen" %}
+          <a href="{{ path('deleteOrder', { id: order.id }) }}" class="btn btn-outline-danger btn-sm" role="button">Entfernen</a>
+        {% endif %}
+        </td>
       </tr>
+      {% endif %}
     {% endfor %}
       <tr>
         <td></td>
         <td></td>
         <td>{{ summe|number_format(2) }} €</td>
+        <td></td>
         <td></td>
       </tr>
     </tbody>

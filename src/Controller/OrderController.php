@@ -64,4 +64,22 @@ class OrderController extends AbstractController
 
         return $this->redirect($this->generateUrl('order'));
     }
+
+    #[Route('/order/delete/{id}', name: 'deleteOrder')]
+    public function delete($id, OrderRepository $or)
+    {
+        try {            
+            // Datensatz löschen
+            $em = $this->doctrine->getManager();
+            $order = $or->find($id);
+            $em->remove($order);
+            $em->flush();
+
+        } catch (\Throwable $th) {
+            $this->addFlash('failedOrder', 'Die Bestellung konnte nicht gelöscht werden!');
+        }
+        
+        // Weiterleitung
+        return $this->redirect($this->generateUrl('order'));
+    }
 }
