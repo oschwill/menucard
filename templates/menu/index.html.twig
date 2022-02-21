@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+{% for message in app.flashes('order') %}
+	<div class="alert alert-success">
+		<h3>{{ message }}</h3>
+	</div>
+{% endfor %}
 <!-- Playlist section -->
 <section class="playlist-section spad">
 	<div class="container-fluid">
@@ -24,7 +29,9 @@
 					<img src="{{ asset('pictures/') ~ meal.picture}}" alt="{{ meal.name }}">
 					<h5>{{ meal.name }}</h5>
                     <p>{{ meal.description }} - {{ meal.price }} €</p>
-                    {# <p>Bestellnummer: {{ meal.id }}</p> #}
+                    <p>Bestellnummer: {{ meal.id }}
+										<a class="btn btn-outline-danger btn-sm" href="{{ path('orderMeal', { id: meal.id })}}" role="button">Bestellen</a>
+										</p>
 				</div>
 			</div>			
 			{% endfor %}

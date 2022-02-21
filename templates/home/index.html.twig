@@ -15,7 +15,7 @@
 							<h2><span>{{ randMeal.name}}</span> für dich!</h2>
 							<p>{{ randMeal.description }} - Gericht des Tages</p>
 							<a href="{{ path('menu') }}" class="site-btn">Menükarte</a>
-							<a href="#" class="site-btn sb-c2">Bestellen</a>
+							<a href="{{path('orderMeal', { id: randMeal.id })}}" class="site-btn sb-c2">Bestellen</a>
 						</div>
 					</div>
 					<div class="col-lg-6">

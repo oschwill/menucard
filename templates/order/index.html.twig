@@ -2,4 +2,38 @@
 
 {% block body %}
 
+{% set summe = 0.00 %}
+<br>
+<div class="container">
+  <h2>Ihre Bestellung</h2>
+  <br>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td>Bestell Nr.</td>
+        <td>Name</td>
+        <td>Preis</td>
+        <td>Status</td>
+      </tr>
+    </thead>
+    <tbody>
+    {% for order in orders %}
+      {% set summe = summe + order.price %}
+      <tr>
+        <td>{{ order.bnummer }}</td>
+        <td>{{ order.name }}</td>
+        <td>{{ order.price }} €</td>
+        <td>{{ order.status }}</td>
+      </tr>
+    {% endfor %}
+      <tr>
+        <td></td>
+        <td></td>
+        <td>{{ summe|number_format(2) }} €</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 {% endblock %}

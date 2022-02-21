@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
 	<head>
-		<title>SolMusic | HTML Template</title>
+		<title>menucard</title>
 		<meta charset="UTF-8">
 		<meta name="description" content="SolMusic HTML Template">
 		<meta name="keywords" content="music, html">
@@ -57,9 +57,10 @@
 				<li> <!-- Menükarte -->
 					<a href="{{path('menu')}}">Menükarte</a>
 				</li>
-				<li> <!-- News -->
-					<a href="blog.html">News</a>
+				<li> <!-- Bestellung -->
+					<a href="{{path('order')}}">Bestellung</a>
 				</li>
+				
 				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 				<li> <!-- Mitarbeiter -->
 					<a href="#">Mitarbeiter</a>
