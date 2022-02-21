@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MealsController!{% endblock %}
+
+{% block body %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        <h3 class="text-center">{{ message }}</h3>
+    </div>
+{% endfor %}
+{% for message in app.flashes('failed') %}
+    <div class="alert alert-danger">
+        <h3 class="text-center">{{ message }}</h3>
+    </div>
+{% endfor %}
+<br>
+<div class="container">
+    <h2>Gerichte bearbeiten</h2><br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Bestell Nr.</td>
+                <td>Kategorie</td>
+                <td>Name</td>
+                <td>Beschreibung</td>
+                <td>Preis</td>
+                <td class="text-center">Löschen</td>
+                <td><a href="{{path('meals.create')}}"> Anlegen</a></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for meal in meals %}
+                <tr>
+                    <td>{{ meal.id }}</td>
+                    <td>{{ meal.category }}</td>
+                    <td><a href="{{path('meals.showmeal', {id: meal.id})}}">{{ meal.name }}</a></td>
+                    <td>{{ meal.description }}</td>
+                    <td>{{ meal.price }}</td>
+                    <td class="text-center"><a href="{{path('meals.delete', {id: meal.id})}}">X</a></td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

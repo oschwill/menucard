@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+<!-- Hero section -->
+<section class="hero-section">
+	<div class="hero-slider owl-carousel">
+	{% for randMeal in randomMeals %}
+		<div class="hs-item">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="hs-text">
+							<h2><span>{{ randMeal.name}}</span> für dich!</h2>
+							<p>{{ randMeal.description }} - Gericht des Tages</p>
+							<a href="{{ path('menu') }}" class="site-btn">Menükarte</a>
+							<a href="#" class="site-btn sb-c2">Bestellen</a>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="hr-img">
+							<img src="{{asset('pictures/') ~ randMeal.picture }}" alt="{{ randMeal.name}}">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}		
+	</div>
+</section>
+<!-- Hero section end -->
+
+{% endblock %}
